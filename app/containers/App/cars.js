@@ -11,14 +11,42 @@
  */
 
 import { fromJS } from 'immutable';
+import { createSelector } from 'reselect';
 
-import {
-  LOAD_REPOS_SUCCESS,
-  LOAD_REPOS,
-  LOAD_REPOS_ERROR,
-} from './constants';
+export const LOAD_REPOS = 'boilerplate/App/LOAD_REPOS';
+export const LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS';
+export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
+export const DEFAULT_LOCALE = 'en';
 
-// The initial state of the App
+export const selectGlobal = (state) => state.get('global');
+
+const selectRoute = (state) => state.get('route');
+
+export const makeSelectCurrentUser = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('currentUser')
+);
+
+export const makeSelectLoading = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('loading')
+);
+
+export const makeSelectError = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('error')
+);
+
+export const makeSelectRepos = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.getIn(['userData', 'repositories'])
+);
+
+export const makeSelectLocation = () => createSelector(
+  selectRoute,
+  (routeState) => routeState.get('location').toJS()
+);
+
 const initialState = fromJS({
   loading: false,
   error: false,

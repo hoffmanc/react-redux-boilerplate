@@ -1,17 +1,14 @@
-/*
- * HomeReducer
- *
- * The reducer takes care of our data. Using actions, we can change our
- * application state.
- * To add a new action, add it to the switch statement in the reducer function
- *
- * Example:
- * case YOUR_ACTION_CONSTANT:
- *   return state.set('yourStateVariable', true);
- */
-import { fromJS } from 'immutable';
+export const CHANGE_USERNAME = 'boilerplate/Home/CHANGE_USERNAME';
 
-import { CHANGE_USERNAME } from './constants';
+import { fromJS } from 'immutable';
+import { createSelector } from 'reselect';
+
+export const selectHome = (state) => state.get('home');
+
+export const makeSelectUsername = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('username')
+);
 
 // The initial state of the App
 const initialState = fromJS({
@@ -29,3 +26,4 @@ function homeReducer(state = initialState, action) {
 }
 
 export default homeReducer;
+

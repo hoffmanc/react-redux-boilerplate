@@ -6,20 +6,23 @@ import injectSaga from 'utils/injectSaga';
 import {
   makeSelectRepos,
   makeSelectLoading,
-  makeSelectError
-} from 'containers/App/selectors';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
-import reducer from './reducer';
+  makeSelectError,
+  LOAD_REPOS,
+} from 'containers/App/cars';
+
+import reducer, {
+  makeSelectUsername,
+  CHANGE_USERNAME,
+} from './cars';
+
 import saga from './saga';
 import HomePage from './HomePage';
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
+  onChangeUsername: (evt) => dispatch({ type: CHANGE_USERNAME, name: evt.target.value }),
   onSubmitForm: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-    dispatch(loadRepos());
+    dispatch({type: LOAD_REPOS});
   }
 });
 
