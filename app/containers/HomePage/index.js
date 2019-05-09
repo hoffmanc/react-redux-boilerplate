@@ -13,7 +13,7 @@ import reducer, {
   CHANGE_USERNAME,
 } from './cars';
 
-import saga from './saga';
+//import saga from './saga';
 import HomePage from './HomePage';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -32,7 +32,7 @@ const mapStateToProps = createStructuredSelector({
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'home', reducer });
-const withSaga = injectSaga({ key: 'home', saga });
+//const withSaga = injectSaga({ key: 'home', saga });
 
-export default compose(withReducer, withSaga, withConnect)(HomePage);
+export default compose(withReducer, withConnect)(HomePage);
 export { mapDispatchToProps };
