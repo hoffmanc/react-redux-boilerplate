@@ -27,6 +27,7 @@ const App = () => (
     <Header />
     <Switch>
       <Route exact path="/" component={HomePage} />
+      <Route exact path="/documents" component={Documents} />
       <Route path="" component={NotFoundPage} />
     </Switch>
     <Footer />
