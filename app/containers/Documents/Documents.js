@@ -1,14 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
-import './style.scss';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Helmet } from 'react-helmet'
+import { withStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import Divider from '@material-ui/core/Divider'
+import InboxIcon from '@material-ui/icons/Inbox'
+import DraftsIcon from '@material-ui/icons/Drafts'
+
+const styles = theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+});
 
 const Documents = ({
   loading,
   error,
-  document_sets,
+  docSets,
+  selectedDocumentSet,
   documents,
-  onChagneDocumentSet,
+  onChangeDocumentSet,
 }) => (
   <article>
     <Helmet>
@@ -24,11 +40,11 @@ const Documents = ({
       </section>
       <section>
         <List component="nav">
-          { document_sets.map((doc) => (
+          { docSets && docSets.map((docSet) => (
             <ListItem
               button
-              selected={this.state.selectedIndex === 0}
-              onClick={event => this.handleListItemClick(event, 0)}
+              selected={selectedDocumentSets[docSet]}
+              onClick={onChangeDocumentSet(docSet)}
             >
               <ListItemIcon>
                 <InboxIcon />
@@ -40,15 +56,15 @@ const Documents = ({
       </section>
     </div>
   </article>
-    );
-  }
-}
+)
 
 Documents.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func
-};
+  docSets: PropTypes.array,
+  selectedDocumentSets: PropTypes.object,
+  documents: PropTypes.array,
+  onChangeDocumentSet: PropTypes.func,
+}
+
+export default withStyles(styles)(Documents)
