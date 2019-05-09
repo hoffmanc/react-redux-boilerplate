@@ -4,10 +4,8 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import {
-  makeSelectRepos,
   makeSelectLoading,
   makeSelectError,
-  LOAD_REPOS,
 } from 'containers/App/cars';
 
 import reducer, {
@@ -22,12 +20,10 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeUsername: (evt) => dispatch({ type: CHANGE_USERNAME, name: evt.target.value }),
   onSubmitForm: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-    dispatch({type: LOAD_REPOS});
   }
 });
 
 const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
   username: makeSelectUsername(),
   loading: makeSelectLoading(),
   error: makeSelectError()
