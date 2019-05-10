@@ -14,7 +14,7 @@ import saga from './saga'
 import Documents from './Documents'
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeDocumentSet: (docSet) => { (evt) => { dispatch({ type: CHANGE_DOC_SET, docSet }) }},
+  onChangeDocumentSet: (docSet) => (evt) => dispatch({ type: CHANGE_DOC_SET, docSet }),
 })
 
 const mapStateToProps = createStructuredSelector({
@@ -28,5 +28,5 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps)
 const withReducer = injectReducer({ key: 'doc', reducer })
 const withSaga = injectSaga({ key: 'doc', saga })
 
-export default compose(withReducer, withConnect)(Documents)
+export default compose(withReducer, withSaga, withConnect)(Documents)
 export { mapDispatchToProps }

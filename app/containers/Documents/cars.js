@@ -14,7 +14,7 @@ export const makeSelectSelectedDocumentSet = () => createSelector(selectDoc, (do
 export default function docReducer(state = fromJS({}), {type, docSet, docSets, docs}) {
   switch (type) {
     case CHANGE_DOC_SET:
-      return state.set('selectedDocSet', docSet)
+      return state.set('selectedDocumentSet', docSet === state.get('selectedDocumentSet') ? null : docSet)
     case FETCHED_DOCUMENTS:
       return state.set('documents', docs)
     case FETCHED_DOCUMENT_SETS:
