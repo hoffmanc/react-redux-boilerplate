@@ -9,9 +9,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import DocumentSetIcon from 'components/DocumentSetIcon/index'
-import StarBorder from '@material-ui/icons/StarBorder';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder'
+import ExpandLess from '@material-ui/icons/ExpandLess'
+import ExpandMore from '@material-ui/icons/ExpandMore'
+import Badge from '@material-ui/core/Badge'
 
 const styles = theme => ({
   root: {
@@ -50,15 +51,16 @@ const Documents = ({
           { docSets && docSets.map((docSet) => {
             const selected = docSet === selectedDocumentSet
             return (
-              <Fragment>
+              <Fragment key={`doc-set-${docSet.id}`}>
                 <ListItem
-                  key={`doc-set-${docSet.id}`}
                   button
                   selected={selected}
                   onClick={onChangeDocumentSet(docSet)}
                 >
                   <ListItemIcon>
-                    <DocumentSetIcon docSet={docSet} />
+                    <Badge badgeContent={docSet.documents_count} color="primary">
+                      <DocumentSetIcon docSet={docSet} />
+                    </Badge>
                   </ListItemIcon>
                   <ListItemText primary={docSet.name} secondary={docSet.description} />
                   { selected ? <ExpandLess /> : <ExpandMore /> }
@@ -67,7 +69,7 @@ const Documents = ({
                   <Collapse in timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       { documents.map((doc) => (
-                        <ListItem key={`doc-${doc.id}`} button className={classes.nested}>
+                        <ListItem key={`doc-set-${docSet.id}-doc-${doc.id}`} button className={classes.nested}>
                           <ListItemIcon>
                             <StarBorder />
                           </ListItemIcon>
@@ -77,6 +79,7 @@ const Documents = ({
                     </List>
                   </Collapse>
                 )}
+                <Divider />
               </Fragment>
             )
           })}
